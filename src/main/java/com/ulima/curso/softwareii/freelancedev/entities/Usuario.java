@@ -13,12 +13,20 @@ import java.util.Objects;
 import java.util.UUID;
 
 @Entity
+@Inheritance(strategy = InheritanceType.JOINED)
 @Table(name = "usuarios")
 public abstract class Usuario {
   @Id
   @GeneratedValue(generator = "UUID")
-  @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
-  @Column(name = "id", updatable = false, nullable = false)
+  @GenericGenerator(
+      name = "UUID",
+      strategy = "org.hibernate.id.UUIDGenerator"
+  )
+  @Column(
+      name = "id",
+      updatable = false,
+      nullable = false
+  )
   private UUID id;
 
   // Agregar Validacion por nombre
@@ -29,11 +37,15 @@ public abstract class Usuario {
 
   // Agregar validacion si existe el correo en la DB
   @NotBlank
-  @Column(unique = true)
+  @Column(
+      unique = true,
+      nullable = false
+  )
   private String correo;
 
   @NotBlank
   @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+  @Column(nullable = false)
   private String contrasenia;
 
   @JsonIgnoreProperties({"usuario", "handler", "hibernateLazyInitializer"})

@@ -1,5 +1,6 @@
 package com.ulima.curso.softwareii.freelancedev.entities;
 
+import ch.qos.logback.core.net.server.Client;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import org.hibernate.annotations.GenericGenerator;
@@ -16,7 +17,12 @@ public class Trabajo {
   private UUID id;
 
   // Definir cardinalidad Aqui
-  private UUID id_cliente;
+  @ManyToOne
+  @JoinColumn(
+      name = "id_cliente",
+      nullable = false
+  )
+  private Cliente cliente;
 
   @NotBlank
   @Column(unique = true)
@@ -28,6 +34,9 @@ public class Trabajo {
   private String imagen;
   private char categoria;
   private char locacion;
+
+  public Trabajo() {
+  }
 
   public UUID getId() {
     return id;
