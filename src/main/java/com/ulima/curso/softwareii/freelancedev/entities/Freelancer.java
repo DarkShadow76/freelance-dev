@@ -1,5 +1,6 @@
 package com.ulima.curso.softwareii.freelancedev.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 @Entity
@@ -7,6 +8,7 @@ import jakarta.persistence.*;
 @PrimaryKeyJoinColumn(name = "id")
 public class Freelancer extends Usuario{
   @OneToOne(mappedBy = "freelancer", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+  @JsonIgnore
   private Portafolio portafolio;
   private float calificacion;
   private char tipoPriv;

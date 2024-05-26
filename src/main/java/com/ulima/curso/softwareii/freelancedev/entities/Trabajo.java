@@ -1,6 +1,5 @@
 package com.ulima.curso.softwareii.freelancedev.entities;
 
-import ch.qos.logback.core.net.server.Client;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import org.hibernate.annotations.GenericGenerator;
