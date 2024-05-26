@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import org.hibernate.annotations.GenericGenerator;
 
+import java.util.Date;
 import java.util.UUID;
 
 @Entity
@@ -33,6 +34,10 @@ public class Trabajo {
   private String imagen;
   private char categoria;
   private char locacion;
+
+  private Date fechainicio;
+
+  private Date fechafin;
 
   public Trabajo() {
   }
@@ -91,5 +96,21 @@ public class Trabajo {
 
   public void setLocacion(char locacion) {
     this.locacion = locacion;
+  }
+
+  public Date getFechainicio() {
+    return fechainicio;
+  }
+
+  public void setFechainicio(Date fechainicio) {
+    this.fechainicio = fechainicio;
+  }
+
+  public Date getFechafin() {
+    return fechafin;
+  }
+
+  public void setFechafin(Date fechafin) {
+    this.fechafin = fechafin;
   }
 }
