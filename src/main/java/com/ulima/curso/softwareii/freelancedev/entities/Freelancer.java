@@ -3,6 +3,8 @@ package com.ulima.curso.softwareii.freelancedev.entities;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
+import java.util.Objects;
+
 @Entity
 @Table(name = "freelancers")
 @PrimaryKeyJoinColumn(name = "id")
@@ -44,5 +46,19 @@ public class Freelancer extends Usuario{
 
   public void setNumTrabajos(int numTrabajos) {
     this.numTrabajos = numTrabajos;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    if (!super.equals(o)) return false;
+    Freelancer that = (Freelancer) o;
+    return Float.compare(calificacion, that.calificacion) == 0 && tipoPriv == that.tipoPriv && numTrabajos == that.numTrabajos && Objects.equals(portafolio, that.portafolio);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(super.hashCode(), portafolio, calificacion, tipoPriv, numTrabajos);
   }
 }
