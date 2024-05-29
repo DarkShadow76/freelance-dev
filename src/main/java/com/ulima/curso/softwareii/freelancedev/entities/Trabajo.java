@@ -31,7 +31,10 @@ public class Trabajo {
   @NotBlank
   private String descripcion;
   private String estado;
-  private String imagen;
+
+  @Lob
+  @Column(name = "imagen", columnDefinition = "BLOB")
+  private byte[] imagen;
   private char categoria;
   private char locacion;
 
@@ -74,11 +77,11 @@ public class Trabajo {
     this.estado = estado;
   }
 
-  public String getImagen() {
+  public byte[] getImagen() {
     return imagen;
   }
 
-  public void setImagen(String imagen) {
+  public void setImagen(byte[] imagen) {
     this.imagen = imagen;
   }
 
