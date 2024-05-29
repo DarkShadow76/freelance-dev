@@ -11,3 +11,8 @@ spring:
     show-sql: true
     hibernate:
       ddl-auto: create
+
+  security:
+    user:
+      name: luis
+      password: gaaa
