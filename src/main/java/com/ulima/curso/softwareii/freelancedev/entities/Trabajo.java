@@ -42,9 +42,6 @@ public class Trabajo {
 
   private Date fechafin;
 
-  public Trabajo() {
-  }
-
   public UUID getId() {
     return id;
   }

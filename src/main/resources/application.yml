@@ -1,4 +1,7 @@
 spring:
+  data:
+    rest:
+      base-path: /api
   application:
     name: freelance-dev
   datasource:
@@ -16,3 +19,5 @@ spring:
     user:
       name: luis
       password: gaaa
+server:
+  port: 4447
