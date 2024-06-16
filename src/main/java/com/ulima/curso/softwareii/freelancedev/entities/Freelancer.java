@@ -26,7 +26,6 @@ public class Freelancer extends Usuario{
   private char tipoPriv;
   private int numTrabajos;
 
-  @JsonManagedReference
   @Override
   public List<Rol> getRoles(){
     return super.getRoles();

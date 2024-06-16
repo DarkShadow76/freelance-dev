@@ -58,6 +58,7 @@ public abstract class Usuario {
   private String contrasenia;
 
   @JsonIgnoreProperties({"usuario", "handler", "hibernateLazyInitializer"})
+  @JsonManagedReference
   @ManyToMany(
       targetEntity = Rol.class,
       cascade = CascadeType.MERGE,
@@ -69,7 +70,6 @@ public abstract class Usuario {
       inverseJoinColumns = @JoinColumn(name = "rol_id"),
       uniqueConstraints = {@UniqueConstraint(columnNames = {"usuario_id", "rol_id"})}
   )
-
   private List<Rol> roles = new ArrayList<>();
 
   private boolean enabled;

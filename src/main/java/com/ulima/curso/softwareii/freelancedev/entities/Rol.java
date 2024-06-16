@@ -32,7 +32,6 @@ public class Rol {
   @Column(unique = true)
   private String nombre;
 
-  @JsonBackReference
   @ManyToMany(mappedBy = "roles")
   private List<Usuario> usuarios;
 }
