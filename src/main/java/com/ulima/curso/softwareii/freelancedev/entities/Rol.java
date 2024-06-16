@@ -1,7 +1,11 @@
 package com.ulima.curso.softwareii.freelancedev.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 
 import java.util.ArrayList;
@@ -11,62 +15,24 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "roles")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Rol {
   @Id
   @GeneratedValue(generator = "UUID")
-  @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
+  @GenericGenerator(
+      name = "UUID",
+      strategy = "org.hibernate.id.UUIDGenerator"
+  )
   @Column(name = "id", updatable = false, nullable = false)
   private UUID id;
 
   @Column(unique = true)
   private String nombre;
 
-  @JsonIgnoreProperties({"roles", "handler", "hibernateLazyInitializer"})
+  @JsonBackReference
   @ManyToMany(mappedBy = "roles")
   private List<Usuario> usuarios;
-
-  public Rol(){
-    this.usuarios = new ArrayList<>();
-  }
-
-  public Rol(String nombre){
-    this.nombre = nombre;
-  }
-
-  public UUID getId() {
-    return id;
-  }
-
-  public void setId(UUID id) {
-    this.id = id;
-  }
-
-  public String getNombre() {
-    return nombre;
-  }
-
-  public void setNombre(String nombre) {
-    this.nombre = nombre;
-  }
-
-  public List<Usuario> getUsuarios() {
-    return usuarios;
-  }
-
-  public void setUsuarios(List<Usuario> usuarios) {
-    this.usuarios = usuarios;
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
-    Rol rol = (Rol) o;
-    return Objects.equals(id, rol.id) && Objects.equals(nombre, rol.nombre);
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(id, nombre);
-  }
 }

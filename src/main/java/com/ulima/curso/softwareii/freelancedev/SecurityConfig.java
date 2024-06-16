@@ -15,7 +15,8 @@ public class SecurityConfig {
         .authorizeHttpRequests(authorizeRequest ->
             authorizeRequest.anyRequest().permitAll()
         )
-        .httpBasic().disable();
+        .httpBasic().disable()
+        .csrf().disable();
 
     return http.build();
   }

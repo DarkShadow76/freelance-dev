@@ -34,7 +34,7 @@ public class UsuarioServiceImpl<T extends Usuario> implements UsuarioService<T> 
     optionalRolUsuario.ifPresent(roles::add);
 
     if (usuario.isAdmin()) {
-      Optional<Rol> optionalRolAdmin = rolRepository.findByNombre("ROLE_ADMIN");
+      Optional<Rol> optionalRolAdmin = rolRepository.findByNombre("ROL_ADMIN");
       optionalRolAdmin.ifPresent(roles::add);
     }
 
