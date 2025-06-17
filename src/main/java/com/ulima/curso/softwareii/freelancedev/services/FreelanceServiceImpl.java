@@ -62,7 +62,7 @@ public class FreelanceServiceImpl implements FreelancerService {
     NFreelancer.setAdmin(false);
     NFreelancer.setEnabled(true);
 
-    Rol defaulRole = rolRepository.findByNombre("ROL_CLIENTE")
+    Rol defaulRole = rolRepository.findByNombre("ROLE_FREELANCER")
         .orElseThrow(() -> new RuntimeException("Error: No se encuentra el rol de cliente."));
 
     NFreelancer.setRoles(Collections.singletonList(defaulRole));

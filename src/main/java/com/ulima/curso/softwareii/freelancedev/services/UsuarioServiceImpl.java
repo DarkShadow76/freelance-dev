@@ -31,14 +31,15 @@ public class UsuarioServiceImpl<T extends Usuario> implements UsuarioService<T> 
   }
 
   @Override
+  @Transactional
   public T save(T usuario) {
-    Optional<Rol> optionalRolUsuario = rolRepository.findByNombre("ROL_USER");
+    Optional<Rol> optionalRolUsuario = rolRepository.findByNombre("ROLE_USER");
     List<Rol> roles = new ArrayList<>();
 
     optionalRolUsuario.ifPresent(roles::add);
 
     if (usuario.isAdmin()) {
-      Optional<Rol> optionalRolAdmin = rolRepository.findByNombre("ROL_ADMIN");
+      Optional<Rol> optionalRolAdmin = rolRepository.findByNombre("ROLE_ADMIN");
       optionalRolAdmin.ifPresent(roles::add);
     }
 
@@ -54,6 +55,7 @@ public class UsuarioServiceImpl<T extends Usuario> implements UsuarioService<T> 
   }
 
   @Override
+  @Transactional
   public boolean existByNombre(String nombre) {
     return usuarioRepository.existsByNombre(nombre);
   }

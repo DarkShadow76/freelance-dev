@@ -64,7 +64,7 @@ public class ClienteServiceImpl implements ClienteService{
     Ncliente.setAdmin(false);
     Ncliente.setEnabled(true);
 
-    Rol defaulRole = rolRepository.findByNombre("ROL_CLIENTE")
+    Rol defaulRole = rolRepository.findByNombre("ROLE_CLIENTE")
         .orElseThrow(() -> new RuntimeException("Error: No se encuentra el rol de cliente."));
 
     Ncliente.setRoles(Collections.singletonList(defaulRole));
