@@ -5,6 +5,7 @@ import com.ulima.curso.softwareii.freelancedev.entities.Usuario;
 import com.ulima.curso.softwareii.freelancedev.repositories.RolRepository;
 import com.ulima.curso.softwareii.freelancedev.repositories.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,6 +20,9 @@ public class UsuarioServiceImpl<T extends Usuario> implements UsuarioService<T> 
 
   @Autowired
   private RolRepository rolRepository;
+
+  @Autowired(required = false)
+  private PasswordEncoder passwordEncoder;
 
   @Override
   @Transactional(readOnly = true)
@@ -39,12 +43,22 @@ public class UsuarioServiceImpl<T extends Usuario> implements UsuarioService<T> 
     }
 
     usuario.setRoles(roles);
-    usuario.setContrasenia(usuario.getContrasenia());
+
+    if (passwordEncoder != null && isPasswordAlreadyEncoded(usuario.getContrasenia())) {
+      usuario.setContrasenia(passwordEncoder.encode(usuario.getContrasenia()));
+    } else {
+      usuario.setContrasenia(usuario.getContrasenia());
+    }
+
     return usuarioRepository.save(usuario);
   }
 
   @Override
   public boolean existByNombre(String nombre) {
     return usuarioRepository.existsByNombre(nombre);
+  }
+
+  private boolean isPasswordAlreadyEncoded(String password) {
+    return password != null && password.startsWith("$2a$") || password.startsWith("$2b$") || password.startsWith("$2y$");
   }
 }
