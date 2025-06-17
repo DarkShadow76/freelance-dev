@@ -1,13 +1,13 @@
 spring:
   data:
     rest:
-      base-path: /api
+      base-path: /api/ver1
   application:
-    name: freelance-dev
+    name: laborape-backend
   datasource:
-    url: jdbc:postgresql://localhost:5432/db_freelance_dev
-    username: postgres
-    password: sasa1234
+    url: jdbc:postgresql://localhost:5432/laborape_db
+    username: laborape
+    password: laborape2025
     driver-class-name: org.postgresql.Driver
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
@@ -16,8 +16,8 @@ spring:
       ddl-auto: update
 
   security:
-    user:
-      name: luis
-      password: gaaa
+    #user:
+     #name: luis
+     #password: gaaa
 server:
   port: 4447
