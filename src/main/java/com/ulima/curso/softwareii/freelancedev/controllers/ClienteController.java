@@ -31,6 +31,8 @@ public class ClienteController extends UsuarioController<Cliente>{
       return ResponseEntity.badRequest().body("Datos de registro incompletos.");
     }
 
+    System.out.println(registerRequest.getNombre() + " " + registerRequest.getCorreo() + " " + registerRequest.getContrasenia());
+
     try {
       Cliente newCliente = clienteService.registerCliente(registerRequest);
       // Retorna una respuesta adecuada, por ejemplo, un mensaje de éxito

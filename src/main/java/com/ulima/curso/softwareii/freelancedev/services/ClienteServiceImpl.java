@@ -27,9 +27,6 @@ public class ClienteServiceImpl implements ClienteService{
   @Autowired
   private PasswordEncoder passwordEncoder;
 
-  //@Autowired
-  //private PasswordEncoder passwordEncoder;
-
   @Override
   @Transactional(readOnly = true)
   public List<Cliente> findAll() {
@@ -45,14 +42,15 @@ public class ClienteServiceImpl implements ClienteService{
 
   @Override
   public boolean existByNombre(String nombre) {
-    return usuarioRepository.existsByNombre(nombre);
+    return clienteRepository.existsByNombre(nombre);
   }
 
+  @Transactional
   public Cliente registerCliente(RegisterRequest request) {
-    if (usuarioRepository.existsByCorreo(request.getCorreo())){
+    if (clienteRepository.existsByCorreo(request.getCorreo())){
       throw new IllegalStateException("Ya existe un usuario con correo: "+ request.getCorreo());
     }
-    if (usuarioRepository.existsByNombre(request.getNombre())){
+    if (clienteRepository.existsByNombre(request.getNombre())){
       throw new IllegalStateException("Ya existe un usuario con nombre: "+ request.getNombre());
     }
 

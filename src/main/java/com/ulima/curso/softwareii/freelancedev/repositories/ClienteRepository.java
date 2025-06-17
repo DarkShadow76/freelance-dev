@@ -11,5 +11,6 @@ import java.util.UUID;
 @RepositoryRestResource(exported = false)
 public interface ClienteRepository extends JpaRepository<Cliente, UUID> {
   boolean existsByNombre(String nombre);
+  boolean existsByCorreo(String correo);
   Optional<Cliente> findByNombre(String nombre);
 }

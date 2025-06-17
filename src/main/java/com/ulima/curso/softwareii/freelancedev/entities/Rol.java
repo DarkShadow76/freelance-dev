@@ -1,6 +1,7 @@
 package com.ulima.curso.softwareii.freelancedev.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -32,6 +33,7 @@ public class Rol {
   @Column(unique = true)
   private String nombre;
 
-  @ManyToMany(mappedBy = "roles")
+  @JsonIgnore
+  @ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY)
   private List<Usuario> usuarios;
 }
