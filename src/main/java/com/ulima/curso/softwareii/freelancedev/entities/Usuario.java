@@ -40,7 +40,7 @@ public abstract class Usuario {
 
   // Agregar Validacion por nombre
   @NotBlank
-  @Size(min = 4, max = 15)
+  @Size(min = 4, max = 30)
   @Column(unique = true)
   private String nombre;
 

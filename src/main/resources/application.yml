@@ -21,3 +21,30 @@ spring:
      #password: gaaa
 server:
   port: 4447
+  error:
+    include-stacktrace: always
+
+logging:
+  level:
+    root: INFO # Nivel de log por defecto para toda la aplicación. Cámbialo a DEBUG si quieres ver logs muy generales.
+
+    # Tu paquete base de la aplicación. Crucial para ver logs de tu propio código.
+    com.ulima.curso.softwareii.freelancedev: DEBUG
+
+    # Detalles de Spring Framework
+    org.springframework: INFO # Nivel general para el framework Spring.
+    org.springframework.boot: DEBUG # Detalles de arranque y configuración de Spring Boot.
+    org.springframework.web: DEBUG # Detalles del procesamiento de peticiones web (controladores, interceptores).
+
+    # Detalles específicos de Spring Data JPA
+    org.springframework.data.jpa: DEBUG # Para ver cómo Spring Data JPA interactúa con los repositorios.
+
+    # Detalles de transacciones y ORM (JPA/Hibernate)
+    org.springframework.orm.jpa: DEBUG # Nivel para las operaciones de JPA dentro de Spring.
+    org.springframework.transaction: TRACE # Nivel más detallado para la gestión de transacciones. Esto es muy útil.
+
+    # Configuración de Hibernate para ver las sentencias SQL y sus parámetros
+    org.hibernate.SQL: DEBUG # Muestra todas las sentencias SQL generadas y ejecutadas por Hibernate.
+    # Para ver los parámetros que se bindean a las consultas SQL:
+    # Usa esta para versiones recientes de Hibernate (5.2+ y Spring Boot 2.x+)
+    org.hibernate.orm.jdbc.bind: TRACE
