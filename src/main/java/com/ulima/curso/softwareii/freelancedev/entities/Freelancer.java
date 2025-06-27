@@ -7,8 +7,6 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
-import java.util.List;
-
 @EqualsAndHashCode(callSuper = true)
 @Entity
 @Table(name = "freelancers")
@@ -26,7 +24,7 @@ public class Freelancer extends Usuario{
   private int numTrabajos;
 
   @Override
-  public List<Rol> getRoles(){
+  public String getRoles(){
     return super.getRoles();
   }
 }
