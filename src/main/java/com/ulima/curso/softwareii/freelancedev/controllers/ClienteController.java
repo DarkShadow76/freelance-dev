@@ -4,7 +4,6 @@ import com.ulima.curso.softwareii.freelancedev.dto.RegisterRequest;
 import com.ulima.curso.softwareii.freelancedev.entities.Cliente;
 import com.ulima.curso.softwareii.freelancedev.services.ClienteService;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,17 +12,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 @RestController
 @RequestMapping("/api/ver1/cliente")
 public class ClienteController extends UsuarioController<Cliente>{
   private static final Logger logger = LoggerFactory.getLogger(ClienteController.class);
 
-  @Autowired
-  private ClienteService clienteService;
+  private final ClienteService clienteService;
 
-  @Autowired
   public ClienteController(ClienteService clienteService) {
     super(clienteService);
     this.clienteService = clienteService;
@@ -38,8 +34,6 @@ public class ClienteController extends UsuarioController<Cliente>{
       return ResponseEntity.badRequest().body("Datos de registro incompletos.");
     }
 
-    System.out.println(registerRequest.getNombre() + " " + registerRequest.getCorreo() + " " + registerRequest.getContrasenia());
-
     try {
       Cliente newCliente = clienteService.registerCliente(registerRequest);
       // Retorna una respuesta adecuada, por ejemplo, un mensaje de éxito
@@ -47,7 +41,7 @@ public class ClienteController extends UsuarioController<Cliente>{
       return ResponseEntity.status(HttpStatus.CREATED).body("Cliente '" + newCliente.getCorreo() + "' registrado con éxito.");
     } catch (RuntimeException e) {
       // Captura las excepciones de negocio lanzadas desde el servicio (ej. correo ya registrado)
-      logger.error("Error inesperado al registrar cliente: " + e.getMessage(), e); // <-- ¡AQUÍ LOGUEAMOS EL STACK TRACE COMPLETO!
+      logger.error("Error inesperado al registrar cliente: {}", e.getMessage(), e); // <-- ¡AQUÍ LOGUEAMOS EL STACK TRACE COMPLETO!
       return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
     }
   }

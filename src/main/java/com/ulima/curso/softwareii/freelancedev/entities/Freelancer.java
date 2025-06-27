@@ -1,16 +1,15 @@
 package com.ulima.curso.softwareii.freelancedev.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
 import java.util.List;
 
+@EqualsAndHashCode(callSuper = true)
 @Entity
 @Table(name = "freelancers")
 @PrimaryKeyJoinColumn(name = "id")
@@ -18,7 +17,7 @@ import java.util.List;
 @NoArgsConstructor
 @SuperBuilder
 public class Freelancer extends Usuario{
-  @OneToOne(mappedBy = "freelancer", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+  @OneToOne(mappedBy = "freelancer", cascade = CascadeType.ALL)
   @JsonIgnore
   private Portafolio portafolio;
 
