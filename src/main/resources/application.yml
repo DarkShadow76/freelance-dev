@@ -19,8 +19,9 @@ spring:
     #user:
      #name: luis
      #password: gaaa
+# Port 4447 was already in use
 server:
-  port: 4447
+  port: 4446
   error:
     include-stacktrace: always
 
