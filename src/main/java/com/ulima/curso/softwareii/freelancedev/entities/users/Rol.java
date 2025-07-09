@@ -1,6 +1,5 @@
-package com.ulima.curso.softwareii.freelancedev.entities;
+package com.ulima.curso.softwareii.freelancedev.entities.users;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

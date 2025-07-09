@@ -1,6 +1,5 @@
-package com.ulima.curso.softwareii.freelancedev.entities;
+package com.ulima.curso.softwareii.freelancedev.entities.users;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -17,9 +16,6 @@ import java.util.List;
 @NoArgsConstructor
 @SuperBuilder
 public class Freelancer extends Usuario{
-  @OneToOne(mappedBy = "freelancer", cascade = CascadeType.ALL)
-  @JsonIgnore
-  private Portafolio portafolio;
 
   private float calificacion;
   private char tipoPriv;

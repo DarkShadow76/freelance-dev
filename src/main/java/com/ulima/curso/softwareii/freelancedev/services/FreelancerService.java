@@ -1,8 +1,7 @@
 package com.ulima.curso.softwareii.freelancedev.services;
 
 import com.ulima.curso.softwareii.freelancedev.dto.RegisterRequest;
-import com.ulima.curso.softwareii.freelancedev.entities.Freelancer;
-import com.ulima.curso.softwareii.freelancedev.entities.Usuario;
+import com.ulima.curso.softwareii.freelancedev.entities.users.Freelancer;
 
 import java.util.List;
 

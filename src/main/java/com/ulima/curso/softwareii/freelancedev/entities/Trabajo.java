@@ -1,5 +1,6 @@
 package com.ulima.curso.softwareii.freelancedev.entities;
 
+import com.ulima.curso.softwareii.freelancedev.entities.users.Cliente;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import org.hibernate.annotations.GenericGenerator;

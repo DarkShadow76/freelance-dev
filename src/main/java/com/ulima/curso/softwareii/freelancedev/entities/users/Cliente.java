@@ -1,4 +1,4 @@
-package com.ulima.curso.softwareii.freelancedev.entities;
+package com.ulima.curso.softwareii.freelancedev.entities.users;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.PrimaryKeyJoinColumn;

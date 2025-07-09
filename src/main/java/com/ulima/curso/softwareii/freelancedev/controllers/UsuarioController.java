@@ -1,6 +1,6 @@
 package com.ulima.curso.softwareii.freelancedev.controllers;
 
-import com.ulima.curso.softwareii.freelancedev.entities.Usuario;
+import com.ulima.curso.softwareii.freelancedev.entities.users.Usuario;
 import com.ulima.curso.softwareii.freelancedev.services.UsuarioService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

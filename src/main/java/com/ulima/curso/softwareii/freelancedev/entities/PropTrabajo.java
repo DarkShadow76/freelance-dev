@@ -1,5 +1,6 @@
 package com.ulima.curso.softwareii.freelancedev.entities;
 
+import com.ulima.curso.softwareii.freelancedev.entities.users.Freelancer;
 import jakarta.persistence.*;
 import org.hibernate.annotations.GenericGenerator;
 

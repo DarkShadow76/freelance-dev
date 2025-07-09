@@ -1,4 +1,4 @@
-package com.ulima.curso.softwareii.freelancedev.entities;
+package com.ulima.curso.softwareii.freelancedev.entities.users;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;

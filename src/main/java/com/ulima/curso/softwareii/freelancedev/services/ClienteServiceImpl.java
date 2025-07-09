@@ -1,8 +1,8 @@
 package com.ulima.curso.softwareii.freelancedev.services;
 
 import com.ulima.curso.softwareii.freelancedev.dto.RegisterRequest;
-import com.ulima.curso.softwareii.freelancedev.entities.Cliente;
-import com.ulima.curso.softwareii.freelancedev.entities.Rol;
+import com.ulima.curso.softwareii.freelancedev.entities.users.Cliente;
+import com.ulima.curso.softwareii.freelancedev.entities.users.Rol;
 import com.ulima.curso.softwareii.freelancedev.repositories.ClienteRepository;
 import com.ulima.curso.softwareii.freelancedev.repositories.RolRepository;
 import com.ulima.curso.softwareii.freelancedev.repositories.UsuarioRepository;

@@ -2,7 +2,7 @@ package com.ulima.curso.softwareii.freelancedev.security.filter;
 
 import static com.ulima.curso.softwareii.freelancedev.security.TokenJwtConfig.*;
 
-import com.ulima.curso.softwareii.freelancedev.entities.Usuario;
+import com.ulima.curso.softwareii.freelancedev.entities.users.Usuario;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;

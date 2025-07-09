@@ -1,7 +1,7 @@
 package com.ulima.curso.softwareii.freelancedev.services;
 
-import com.ulima.curso.softwareii.freelancedev.entities.Rol;
-import com.ulima.curso.softwareii.freelancedev.entities.Usuario;
+import com.ulima.curso.softwareii.freelancedev.entities.users.Rol;
+import com.ulima.curso.softwareii.freelancedev.entities.users.Usuario;
 import com.ulima.curso.softwareii.freelancedev.repositories.RolRepository;
 import com.ulima.curso.softwareii.freelancedev.repositories.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;

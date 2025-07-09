@@ -1,7 +1,7 @@
 package com.ulima.curso.softwareii.freelancedev.controllers;
 
 import com.ulima.curso.softwareii.freelancedev.dto.RegisterRequest;
-import com.ulima.curso.softwareii.freelancedev.entities.Cliente;
+import com.ulima.curso.softwareii.freelancedev.entities.users.Cliente;
 import com.ulima.curso.softwareii.freelancedev.services.ClienteService;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
