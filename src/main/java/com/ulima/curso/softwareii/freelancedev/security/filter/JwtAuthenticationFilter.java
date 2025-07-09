@@ -2,7 +2,7 @@ package com.ulima.curso.softwareii.freelancedev.security.filter;
 
 import static com.ulima.curso.softwareii.freelancedev.security.TokenJwtConfig.*;
 
-import com.ulima.curso.softwareii.freelancedev.entities.users.Usuario;
+import com.ulima.curso.softwareii.freelancedev.entities.users.User;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -33,14 +33,14 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
   @Override
   public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response)
       throws AuthenticationException {
-    Usuario user;
+    User user;
     String username;
     String password;
 
     try {
-      user = new ObjectMapper().readValue(request.getInputStream(), Usuario.class);
-      username = user.getNombre() ;
-      password = user.getContrasenia();
+      user = new ObjectMapper().readValue(request.getInputStream(), User.class);
+      username = user.getName() ;
+      password = user.getHashedPassword();
     } catch (IOException e) {
       throw new RuntimeException(e);
     }

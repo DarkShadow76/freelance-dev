@@ -2,10 +2,10 @@ package com.ulima.curso.softwareii.freelancedev.services;
 
 import com.ulima.curso.softwareii.freelancedev.dto.RegisterRequest;
 import com.ulima.curso.softwareii.freelancedev.entities.users.Freelancer;
-import com.ulima.curso.softwareii.freelancedev.entities.users.Rol;
+import com.ulima.curso.softwareii.freelancedev.entities.users.Role;
 import com.ulima.curso.softwareii.freelancedev.repositories.FreelancerRepository;
 import com.ulima.curso.softwareii.freelancedev.repositories.RolRepository;
-import com.ulima.curso.softwareii.freelancedev.repositories.UsuarioRepository;
+import com.ulima.curso.softwareii.freelancedev.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -20,7 +20,7 @@ public class FreelanceServiceImpl implements FreelancerService {
   private FreelancerRepository freelancerRepository;
 
   @Autowired
-  private UsuarioRepository usuarioRepository;
+  private UserRepository userRepository;
 
   @Autowired
   private RolRepository rolRepository;
@@ -39,30 +39,30 @@ public class FreelanceServiceImpl implements FreelancerService {
   }
 
   @Override
-  public boolean existByNombre(String nombre) {
+  public boolean existByName(String name) {
     return false;
   }
 
   @Override
   @Transactional
   public Freelancer registerFreelancer(RegisterRequest request) {
-    if (usuarioRepository.existsByCorreo(request.getCorreo())){
-      throw new IllegalStateException("Ya existe un usuario con correo: "+ request.getCorreo());
+    if (userRepository.existsByEmail(request.getEmail())){
+      throw new IllegalStateException("User with email already Exist: "+ request.getEmail());
     }
-    if (usuarioRepository.existsByNombre(request.getNombre())){
-      throw new IllegalStateException("Ya existe un usuario con nombre: "+ request.getNombre());
+    if (userRepository.existsByName(request.getName())){
+      throw new IllegalStateException("User with username already Exist: "+ request.getName());
     }
 
     Freelancer NFreelancer = new Freelancer();
-    NFreelancer.setNombre(request.getNombre());
-    NFreelancer.setCorreo(request.getCorreo());
-    // Hasheamos la contraseña
-    NFreelancer.setContrasenia(passwordEncoder.encode(request.getContrasenia()));
+    NFreelancer.setName(request.getName());
+    NFreelancer.setEmail(request.getEmail());
+
+    NFreelancer.setHashedPassword(passwordEncoder.encode(request.getContrasenia()));
     NFreelancer.setAdmin(false);
     NFreelancer.setEnabled(true);
 
-    Rol defaulRole = rolRepository.findByNombre("ROLE_FREELANCER")
-        .orElseThrow(() -> new RuntimeException("Error: No se encuentra el rol de cliente."));
+    Role defaulRole = rolRepository.findByRoleName("ROLE_FREELANCER")
+        .orElseThrow(() -> new RuntimeException("Error: Role for Freelancer Not found."));
 
     NFreelancer.setRoles(Collections.singletonList(defaulRole));
 

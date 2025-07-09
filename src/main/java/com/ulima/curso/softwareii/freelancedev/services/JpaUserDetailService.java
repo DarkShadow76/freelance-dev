@@ -1,11 +1,10 @@
 package com.ulima.curso.softwareii.freelancedev.services;
 
-import com.ulima.curso.softwareii.freelancedev.entities.users.Usuario;
-import com.ulima.curso.softwareii.freelancedev.repositories.UsuarioRepository;
+import com.ulima.curso.softwareii.freelancedev.entities.users.User;
+import com.ulima.curso.softwareii.freelancedev.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -18,27 +17,27 @@ import java.util.stream.Collectors;
 @Service
 public class JpaUserDetailService implements UserDetailsService {
   @Autowired
-  private UsuarioRepository usuarioRepository;
+  private UserRepository userRepository;
 
   @Override
-  public UserDetails loadUserByUsername(String correo) throws UsernameNotFoundException {
-    Optional<Usuario> user_opt = usuarioRepository.findByCorreo(correo);
+  public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+    Optional<User> user_opt = userRepository.findByEmail(email);
     //Usuario u = new Usuario()
     if (user_opt.isPresent()) {
-      Usuario usuario = user_opt.get();
+      User user = user_opt.get();
 
-      Collection<GrantedAuthority> authorities = usuario.getRoles().stream()
-          .map(rol -> new SimpleGrantedAuthority(rol.getNombre()))
+      Collection<GrantedAuthority> authorities = user.getRoles().stream()
+          .map(rol -> new SimpleGrantedAuthority(rol.getRoleName()))
           .collect(Collectors.toList());
 
-      return User.builder()
-          .username(usuario.getNombre())
-          .password(usuario.getContrasenia())
+      return org.springframework.security.core.userdetails.User.builder()
+          .username(user.getName())
+          .password(user.getHashedPassword())
           .authorities(authorities)
           .disabled(false)
           .build();
     } else {
-      throw new UsernameNotFoundException("Usuario no encontrado: " + correo);
+      throw new UsernameNotFoundException("User not found " + email);
     }
   }
 }

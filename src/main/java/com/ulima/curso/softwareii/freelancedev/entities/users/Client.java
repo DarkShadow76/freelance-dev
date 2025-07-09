@@ -12,14 +12,14 @@ import java.util.List;
 
 @EqualsAndHashCode(callSuper = true)
 @Entity
-@Table(name = "clientes")
-@PrimaryKeyJoinColumn(name = "id")
+@Table(name = "client")
+@PrimaryKeyJoinColumn(name = "id_user")
 @Data
 @NoArgsConstructor
 @SuperBuilder
-public class Cliente extends Usuario{
+public class Client extends User {
   @Override
-  public List<Rol> getRoles(){
+  public List<Role> getRoles(){
     return super.getRoles();
   }
 }

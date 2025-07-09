@@ -24,13 +24,13 @@ public class FreelancerController extends UsuarioController<Freelancer> {
 
   @PostMapping("/register")
   public ResponseEntity<?> registerFreelancer(@RequestBody RegisterRequest registerRequest) {
-    if (registerRequest == null || registerRequest.getNombre() == null || registerRequest.getCorreo() == null || registerRequest.getContrasenia() == null) {
-      return ResponseEntity.badRequest().body("Datos de registro incompletos.");
+    if (registerRequest == null || registerRequest.getName() == null || registerRequest.getEmail() == null || registerRequest.getContrasenia() == null) {
+      return ResponseEntity.badRequest().body("Incomplete Data for register.");
     }
 
     try {
       Freelancer newFreelancer = freelancerService.registerFreelancer(registerRequest);
-      return ResponseEntity.status(HttpStatus.CREATED).body("Freelancer '" + newFreelancer.getCorreo() + "' registrado con éxito.");
+      return ResponseEntity.status(HttpStatus.CREATED).body("Freelancer '" + newFreelancer.getEmail() + "' successfully registered.");
     } catch (RuntimeException e) {
       return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
     }

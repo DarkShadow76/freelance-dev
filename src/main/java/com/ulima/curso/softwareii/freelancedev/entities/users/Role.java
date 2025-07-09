@@ -11,26 +11,31 @@ import org.hibernate.annotations.GenericGenerator;
 import java.util.List;
 import java.util.UUID;
 
+/** TODO
+ * Change type of var for id_role (Use LONG)
+ *
+ * **/
 @Entity
-@Table(name = "roles")
+@Table(name = "role")
+@PrimaryKeyJoinColumn(name = "id_role")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Rol {
+public class Role {
   @Id
   @GeneratedValue(generator = "UUID")
   @GenericGenerator(
       name = "UUID",
       strategy = "org.hibernate.id.UUIDGenerator"
   )
-  @Column(name = "id", updatable = false, nullable = false)
-  private UUID id;
+  @Column(name = "id_role", updatable = false, nullable = false)
+  private UUID idRole;
 
-  @Column(unique = true)
-  private String nombre;
+  @Column(unique = true, name = "name_role")
+  private String RoleName;
 
   @JsonIgnore
   @ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY)
-  private List<Usuario> usuarios;
+  private List<User> users;
 }

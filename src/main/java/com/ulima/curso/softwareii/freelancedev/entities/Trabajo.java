@@ -1,6 +1,6 @@
 package com.ulima.curso.softwareii.freelancedev.entities;
 
-import com.ulima.curso.softwareii.freelancedev.entities.users.Cliente;
+import com.ulima.curso.softwareii.freelancedev.entities.users.Client;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import org.hibernate.annotations.GenericGenerator;
@@ -30,7 +30,7 @@ public class Trabajo {
       name = "id_cliente",
       nullable = false
   )
-  private Cliente cliente;
+  private Client cliente;
 
   @NotBlank
   @Column(unique = true)

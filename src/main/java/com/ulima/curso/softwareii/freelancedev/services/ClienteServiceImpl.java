@@ -1,11 +1,10 @@
 package com.ulima.curso.softwareii.freelancedev.services;
 
 import com.ulima.curso.softwareii.freelancedev.dto.RegisterRequest;
-import com.ulima.curso.softwareii.freelancedev.entities.users.Cliente;
-import com.ulima.curso.softwareii.freelancedev.entities.users.Rol;
-import com.ulima.curso.softwareii.freelancedev.repositories.ClienteRepository;
+import com.ulima.curso.softwareii.freelancedev.entities.users.Client;
+import com.ulima.curso.softwareii.freelancedev.entities.users.Role;
+import com.ulima.curso.softwareii.freelancedev.repositories.ClientRepository;
 import com.ulima.curso.softwareii.freelancedev.repositories.RolRepository;
-import com.ulima.curso.softwareii.freelancedev.repositories.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -17,10 +16,7 @@ import java.util.List;
 @Service
 public class ClienteServiceImpl implements ClienteService{
   @Autowired
-  private ClienteRepository clienteRepository;
-
-  @Autowired
-  private UsuarioRepository usuarioRepository;
+  private ClientRepository clientRepository;
 
   @Autowired
   private RolRepository rolRepository;
@@ -29,44 +25,43 @@ public class ClienteServiceImpl implements ClienteService{
 
   @Override
   @Transactional(readOnly = true)
-  public List<Cliente> findAll() {
-    return clienteRepository.findAll();
+  public List<Client> findAll() {
+    return clientRepository.findAll();
   }
 
   @Override
   @Transactional
-  public Cliente save(Cliente cliente) {
-    // Hashear mas adelante la contraseña
-    return clienteRepository.save(cliente);
+  public Client save(Client cliente) {
+    return clientRepository.save(cliente);
   }
 
   @Override
-  public boolean existByNombre(String nombre) {
-    return clienteRepository.existsByNombre(nombre);
+  public boolean existByName(String name) {
+    return clientRepository.existsByName(name);
   }
 
   @Transactional
-  public Cliente registerCliente(RegisterRequest request) {
-    if (clienteRepository.existsByCorreo(request.getCorreo())){
-      throw new IllegalStateException("Ya existe un usuario con correo: "+ request.getCorreo());
+  public Client registerClient(RegisterRequest request) {
+    if (clientRepository.existsByEmail(request.getEmail())){
+      throw new IllegalStateException("User with email already Exist: "+ request.getEmail());
     }
-    if (clienteRepository.existsByNombre(request.getNombre())){
-      throw new IllegalStateException("Ya existe un usuario con nombre: "+ request.getNombre());
+    if (clientRepository.existsByName(request.getName())){
+      throw new IllegalStateException("User with username already Exist: "+ request.getName());
     }
 
-    Cliente Ncliente = new Cliente();
-    Ncliente.setNombre(request.getNombre());
-    Ncliente.setCorreo(request.getCorreo());
-    // Hasheamos la contraseña
-    Ncliente.setContrasenia(passwordEncoder.encode(request.getContrasenia()));
-    Ncliente.setAdmin(false);
-    Ncliente.setEnabled(true);
+    Client Nclient = new Client();
+    Nclient.setName(request.getName());
+    Nclient.setEmail(request.getEmail());
+    // Hash Password
+    Nclient.setHashedPassword(passwordEncoder.encode(request.getContrasenia()));
+    Nclient.setAdmin(false);
+    Nclient.setEnabled(true);
 
-    Rol defaulRole = rolRepository.findByNombre("ROLE_CLIENTE")
-        .orElseThrow(() -> new RuntimeException("Error: No se encuentra el rol de cliente."));
+    Role defaulRole = rolRepository.findByRoleName("ROLE_CLIENT")
+        .orElseThrow(() -> new RuntimeException("Error: Role for Client Not found."));
 
-    Ncliente.setRoles(Collections.singletonList(defaulRole));
+    Nclient.setRoles(Collections.singletonList(defaulRole));
 
-    return clienteRepository.save(Ncliente);
+    return clientRepository.save(Nclient);
   }
 }

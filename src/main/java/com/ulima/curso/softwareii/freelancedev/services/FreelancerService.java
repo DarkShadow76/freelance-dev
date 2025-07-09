@@ -5,9 +5,9 @@ import com.ulima.curso.softwareii.freelancedev.entities.users.Freelancer;
 
 import java.util.List;
 
-public interface FreelancerService extends UsuarioService<Freelancer>{
+public interface FreelancerService extends UserService<Freelancer> {
   List<Freelancer> findAll();
   Freelancer save(Freelancer freelancer);
   Freelancer registerFreelancer(RegisterRequest request);
-  boolean existByNombre(String nombre);
+  boolean existByName(String nombre);
 }

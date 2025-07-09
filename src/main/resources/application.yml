@@ -13,13 +13,8 @@ spring:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     show-sql: true
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
 
-  security:
-    #user:
-     #name: luis
-     #password: gaaa
-# Port 4447 was already in use
 server:
   port: 4446
   error:

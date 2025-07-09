@@ -10,19 +10,15 @@ import java.util.List;
 
 @EqualsAndHashCode(callSuper = true)
 @Entity
-@Table(name = "freelancers")
-@PrimaryKeyJoinColumn(name = "id")
+@Table(name = "freelancer")
+@PrimaryKeyJoinColumn(name = "id_user")
 @Data
 @NoArgsConstructor
 @SuperBuilder
-public class Freelancer extends Usuario{
-
-  private float calificacion;
-  private char tipoPriv;
-  private int numTrabajos;
+public class Freelancer extends User {
 
   @Override
-  public List<Rol> getRoles(){
+  public List<Role> getRoles(){
     return super.getRoles();
   }
 }

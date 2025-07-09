@@ -23,6 +23,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
 import java.util.Arrays;
+import java.util.List;
 
 @Configuration
 @EnableMethodSecurity()
@@ -62,7 +63,7 @@ public class SpringSecurityConfig {
   @Bean
   CorsConfigurationSource corsConfigurationSource(){
     CorsConfiguration config = new CorsConfiguration();
-    config.setAllowedOriginPatterns(Arrays.asList("*"));
+    config.setAllowedOriginPatterns(List.of("*"));
     config.setAllowedMethods(Arrays.asList("GET", "POST", "DELETE", "PUT"));
     config.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type"));
     config.setAllowCredentials(true);

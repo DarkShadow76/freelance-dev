@@ -1,7 +1,7 @@
 package com.ulima.curso.softwareii.freelancedev.controllers;
 
-import com.ulima.curso.softwareii.freelancedev.entities.users.Usuario;
-import com.ulima.curso.softwareii.freelancedev.services.UsuarioService;
+import com.ulima.curso.softwareii.freelancedev.entities.users.User;
+import com.ulima.curso.softwareii.freelancedev.services.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -9,12 +9,12 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/ver1/usuario")
-public abstract class UsuarioController<T extends Usuario> {
+@RequestMapping("/api/ver1/user")
+public abstract class UsuarioController<T extends User> {
 
-  protected final UsuarioService<T> service;
+  protected final UserService<T> service;
 
-  public UsuarioController(UsuarioService<T> service) {
+  public UsuarioController(UserService<T> service) {
     this.service = service;
   }
 
@@ -24,9 +24,9 @@ public abstract class UsuarioController<T extends Usuario> {
   }
 
   @PostMapping
-  public ResponseEntity<?> create(@RequestBody T usuario) {
+  public ResponseEntity<?> create(@RequestBody T user) {
     // Agregar Validaciones
-    return ResponseEntity.status(HttpStatus.CREATED).body(service.save(usuario));
+    return ResponseEntity.status(HttpStatus.CREATED).body(service.save(user));
   }
   /*
   ¡Método @PostMapping("/register") ELIMINADO de aquí!

@@ -18,12 +18,12 @@ import java.util.UUID;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
-@Table(name = "usuarios")
+@Table(name = "user")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @SuperBuilder
-public abstract class Usuario {
+public abstract class User {
   @Id
   @GeneratedValue(generator = "UUID")
   @GenericGenerator(
@@ -31,17 +31,17 @@ public abstract class Usuario {
       strategy = "org.hibernate.id.UUIDGenerator"
   )
   @Column(
-      name = "id",
+      name = "id_user",
       updatable = false,
       nullable = false
   )
-  private UUID id;
+  private UUID idUser;
 
   // Agregar Validacion por nombre
   @NotBlank
   @Size(min = 4, max = 30)
   @Column(unique = true)
-  private String nombre;
+  private String name;
 
   // Agregar validacion si existe el correo en la DB
   @NotBlank
@@ -49,27 +49,27 @@ public abstract class Usuario {
       unique = true,
       nullable = false
   )
-  private String correo;
+  private String email;
 
   @NotBlank
   @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
   @Column(nullable = false)
-  private String contrasenia;
+  private String HashedPassword;
 
-  @JsonIgnoreProperties({"usuario", "handler", "hibernateLazyInitializer"})
+  @JsonIgnoreProperties({"user", "handler", "hibernateLazyInitializer"})
   @JsonManagedReference
   @ManyToMany(
-      targetEntity = Rol.class,
+      targetEntity = Role.class,
       cascade = CascadeType.MERGE,
       fetch = FetchType.LAZY
   )
   @JoinTable(
-      name = "usuario_roles",
-      joinColumns = @JoinColumn(name = "usuario_id"),
-      inverseJoinColumns = @JoinColumn(name = "rol_id"),
-      uniqueConstraints = {@UniqueConstraint(columnNames = {"usuario_id", "rol_id"})}
+      name = "user_roles",
+      joinColumns = @JoinColumn(name = "id_user"),
+      inverseJoinColumns = @JoinColumn(name = "id_role"),
+      uniqueConstraints = {@UniqueConstraint(columnNames = {"id_user", "id_role"})}
   )
-  private List<Rol> roles = new ArrayList<>();
+  private List<Role> roles = new ArrayList<>();
 
   private boolean enabled;
 
