@@ -1,11 +1,10 @@
 package com.ulima.curso.softwareii.freelancedev.services;
 
-import com.ulima.curso.softwareii.freelancedev.dto.RegisterRequest;
+import com.ulima.curso.softwareii.freelancedev.dto.request.RegisterRequest;
 import com.ulima.curso.softwareii.freelancedev.entities.users.Client;
 import com.ulima.curso.softwareii.freelancedev.entities.users.Role;
 import com.ulima.curso.softwareii.freelancedev.repositories.ClientRepository;
 import com.ulima.curso.softwareii.freelancedev.repositories.RolRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,13 +14,17 @@ import java.util.List;
 
 @Service
 public class ClienteServiceImpl implements ClienteService{
-  @Autowired
-  private ClientRepository clientRepository;
+  private final ClientRepository clientRepository;
 
-  @Autowired
-  private RolRepository rolRepository;
-  @Autowired
-  private PasswordEncoder passwordEncoder;
+  private final RolRepository rolRepository;
+
+  private final PasswordEncoder passwordEncoder;
+
+  public ClienteServiceImpl(ClientRepository clientRepository, RolRepository rolRepository, PasswordEncoder passwordEncoder) {
+    this.clientRepository = clientRepository;
+    this.rolRepository = rolRepository;
+    this.passwordEncoder = passwordEncoder;
+  }
 
   @Override
   @Transactional(readOnly = true)
@@ -53,7 +56,7 @@ public class ClienteServiceImpl implements ClienteService{
     Nclient.setName(request.getName());
     Nclient.setEmail(request.getEmail());
     // Hash Password
-    Nclient.setHashedPassword(passwordEncoder.encode(request.getContrasenia()));
+    Nclient.setHashedPassword(passwordEncoder.encode(request.getPassword()));
     Nclient.setAdmin(false);
     Nclient.setEnabled(true);
 

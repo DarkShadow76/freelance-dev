@@ -1,4 +1,4 @@
-package com.ulima.curso.softwareii.freelancedev.dto;
+package com.ulima.curso.softwareii.freelancedev.dto.request;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;

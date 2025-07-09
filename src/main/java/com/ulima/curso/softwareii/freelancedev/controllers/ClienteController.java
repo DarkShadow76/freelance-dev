@@ -1,6 +1,6 @@
 package com.ulima.curso.softwareii.freelancedev.controllers;
 
-import com.ulima.curso.softwareii.freelancedev.dto.RegisterRequest;
+import com.ulima.curso.softwareii.freelancedev.dto.request.RegisterRequest;
 import com.ulima.curso.softwareii.freelancedev.entities.users.Client;
 import com.ulima.curso.softwareii.freelancedev.services.ClienteService;
 import org.slf4j.LoggerFactory;

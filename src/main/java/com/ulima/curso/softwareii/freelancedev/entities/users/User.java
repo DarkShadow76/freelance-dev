@@ -5,9 +5,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.GenericGenerator;
@@ -19,13 +17,13 @@ import java.util.UUID;
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 @Table(name = "user")
-@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @SuperBuilder
 public abstract class User {
   @Id
   @GeneratedValue(generator = "UUID")
+  @Deprecated
   @GenericGenerator(
       name = "UUID",
       strategy = "org.hibernate.id.UUIDGenerator"
@@ -37,14 +35,9 @@ public abstract class User {
   )
   private UUID idUser;
 
-  // Agregar Validacion por nombre
-  @NotBlank
-  @Size(min = 4, max = 30)
   @Column(unique = true)
   private String name;
 
-  // Agregar validacion si existe el correo en la DB
-  @NotBlank
   @Column(
       unique = true,
       nullable = false
@@ -79,5 +72,61 @@ public abstract class User {
   @PrePersist
   public void prePersist(){
     enabled=true;
+  }
+
+  public UUID getIdUser() {
+    return idUser;
+  }
+
+  public void setIdUser(UUID idUser) {
+    this.idUser = idUser;
+  }
+
+  public String getName() {
+    return name;
+  }
+
+  public void setName(String name) {
+    this.name = name;
+  }
+
+  public String getEmail() {
+    return email;
+  }
+
+  public void setEmail(String email) {
+    this.email = email;
+  }
+
+  public String getHashedPassword() {
+    return HashedPassword;
+  }
+
+  public void setHashedPassword(String hashedPassword) {
+    HashedPassword = hashedPassword;
+  }
+
+  public List<Role> getRoles() {
+    return roles;
+  }
+
+  public void setRoles(List<Role> roles) {
+    this.roles = roles;
+  }
+
+  public boolean isEnabled() {
+    return enabled;
+  }
+
+  public void setEnabled(boolean enabled) {
+    this.enabled = enabled;
+  }
+
+  public boolean isAdmin() {
+    return admin;
+  }
+
+  public void setAdmin(boolean admin) {
+    this.admin = admin;
   }
 }

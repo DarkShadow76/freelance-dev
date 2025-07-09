@@ -1,12 +1,11 @@
 package com.ulima.curso.softwareii.freelancedev.services;
 
-import com.ulima.curso.softwareii.freelancedev.dto.RegisterRequest;
+import com.ulima.curso.softwareii.freelancedev.dto.request.RegisterRequest;
 import com.ulima.curso.softwareii.freelancedev.entities.users.Freelancer;
 import com.ulima.curso.softwareii.freelancedev.entities.users.Role;
 import com.ulima.curso.softwareii.freelancedev.repositories.FreelancerRepository;
 import com.ulima.curso.softwareii.freelancedev.repositories.RolRepository;
 import com.ulima.curso.softwareii.freelancedev.repositories.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,17 +15,21 @@ import java.util.List;
 
 @Service
 public class FreelanceServiceImpl implements FreelancerService {
-  @Autowired
-  private FreelancerRepository freelancerRepository;
+  private final FreelancerRepository freelancerRepository;
 
-  @Autowired
-  private UserRepository userRepository;
+  private final UserRepository userRepository;
 
-  @Autowired
-  private RolRepository rolRepository;
+  private final RolRepository rolRepository;
 
-  @Autowired
-  private PasswordEncoder passwordEncoder;
+  private final PasswordEncoder passwordEncoder;
+
+  public FreelanceServiceImpl(FreelancerRepository freelancerRepository, UserRepository userRepository, RolRepository rolRepository, PasswordEncoder passwordEncoder) {
+    this.freelancerRepository = freelancerRepository;
+    this.userRepository = userRepository;
+    this.rolRepository = rolRepository;
+    this.passwordEncoder = passwordEncoder;
+  }
+
 
   @Override
   public List<Freelancer> findAll() {
@@ -47,17 +50,17 @@ public class FreelanceServiceImpl implements FreelancerService {
   @Transactional
   public Freelancer registerFreelancer(RegisterRequest request) {
     if (userRepository.existsByEmail(request.getEmail())){
-      throw new IllegalStateException("User with email already Exist: "+ request.getEmail());
+      throw new IllegalStateException("Candidate with email already Exist: "+ request.getEmail());
     }
     if (userRepository.existsByName(request.getName())){
-      throw new IllegalStateException("User with username already Exist: "+ request.getName());
+      throw new IllegalStateException("Candidate with username already Exist: "+ request.getName());
     }
 
     Freelancer NFreelancer = new Freelancer();
     NFreelancer.setName(request.getName());
     NFreelancer.setEmail(request.getEmail());
 
-    NFreelancer.setHashedPassword(passwordEncoder.encode(request.getContrasenia()));
+    NFreelancer.setHashedPassword(passwordEncoder.encode(request.getPassword()));
     NFreelancer.setAdmin(false);
     NFreelancer.setEnabled(true);
 
