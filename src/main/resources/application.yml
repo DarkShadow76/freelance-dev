@@ -22,25 +22,25 @@ server:
 
 logging:
   level:
-    root: INFO # Nivel de log por defecto para toda la aplicación. Cámbialo a DEBUG si quieres ver logs muy generales.
+    root: INFO # Default logging level for the whole application. Change it to DEBUG if you want to see very general logs.
 
-    # Tu paquete base de la aplicación. Crucial para ver logs de tu propio código.
+    # Your base application package. Crucial to see logs of your own code.
     com.ulima.curso.softwareii.freelancedev: DEBUG
 
-    # Detalles de Spring Framework
-    org.springframework: INFO # Nivel general para el framework Spring.
-    org.springframework.boot: DEBUG # Detalles de arranque y configuración de Spring Boot.
-    org.springframework.web: DEBUG # Detalles del procesamiento de peticiones web (controladores, interceptores).
+    # Spring Framework details
+    org.springframework: INFO # General level for the Spring framework.
+    org.springframework.boot: DEBUG # Boot details and Spring Boot configuration.
+    org.springframework.web: DEBUG # Web request processing details (drivers, interceptors).
 
-    # Detalles específicos de Spring Data JPA
-    org.springframework.data.jpa: DEBUG # Para ver cómo Spring Data JPA interactúa con los repositorios.
+    # Spring Data JPA specific details
+    org.springframework.data.jpa: DEBUG # To see how Spring Data JPA interacts with repositories.
 
-    # Detalles de transacciones y ORM (JPA/Hibernate)
-    org.springframework.orm.jpa: DEBUG # Nivel para las operaciones de JPA dentro de Spring.
-    org.springframework.transaction: TRACE # Nivel más detallado para la gestión de transacciones. Esto es muy útil.
+    # Transaction and ORM details (JPA/Hibernate)
+    org.springframework.orm.jpa: DEBUG # Level for JPA operations within Spring.
+    org.springframework.transaction: TRACE # More detailed level for transaction management. This is very useful.
 
-    # Configuración de Hibernate para ver las sentencias SQL y sus parámetros
-    org.hibernate.SQL: DEBUG # Muestra todas las sentencias SQL generadas y ejecutadas por Hibernate.
-    # Para ver los parámetros que se bindean a las consultas SQL:
-    # Usa esta para versiones recientes de Hibernate (5.2+ y Spring Boot 2.x+)
+    # Hibernate configuration to view SQL statements and their parameters
+    org.hibernate.SQL: DEBUG # Displays all SQL statements generated and executed by Hibernate.
+    # To view the parameters that are bound to SQL queries:
+    # Use this one for recent versions of Hibernate (5.2+ and Spring Boot 2.x+)
     org.hibernate.orm.jdbc.bind: TRACE
