@@ -2,7 +2,6 @@ package com.ulima.curso.softwareii.freelancedev.services;
 
 import com.ulima.curso.softwareii.freelancedev.entities.users.User;
 import com.ulima.curso.softwareii.freelancedev.repositories.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -16,8 +15,11 @@ import java.util.stream.Collectors;
 
 @Service
 public class JpaUserDetailService implements UserDetailsService {
-  @Autowired
-  private UserRepository userRepository;
+  private final UserRepository userRepository;
+
+  public JpaUserDetailService(UserRepository userRepository) {
+    this.userRepository = userRepository;
+  }
 
   @Override
   public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {

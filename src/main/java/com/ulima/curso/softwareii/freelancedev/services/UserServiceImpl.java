@@ -15,14 +15,17 @@ import java.util.Optional;
 
 @Service
 public class UserServiceImpl<T extends User> implements UserService<T> {
-  @Autowired
-  private UserRepository<T> userRepository;
+  private final UserRepository<T> userRepository;
 
-  @Autowired
-  private RolRepository rolRepository;
+  private final RolRepository rolRepository;
 
-  @Autowired(required = false)
-  private PasswordEncoder passwordEncoder;
+  private final PasswordEncoder passwordEncoder;
+
+  public UserServiceImpl(UserRepository<T> userRepository, RolRepository rolRepository, PasswordEncoder passwordEncoder) {
+    this.userRepository = userRepository;
+    this.rolRepository = rolRepository;
+    this.passwordEncoder = passwordEncoder;
+  }
 
   @Override
   @Transactional(readOnly = true)
