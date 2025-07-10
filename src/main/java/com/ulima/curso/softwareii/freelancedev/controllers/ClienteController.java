@@ -27,7 +27,7 @@ public class ClienteController extends UsuarioController<Client>{
 
   @PostMapping("/register") // Esto mapeará a /api/ver1/cliente/register
   public ResponseEntity<?> registerCliente(@RequestBody RegisterRequest registerRequest) {
-    if (registerRequest == null || registerRequest.getName() == null || registerRequest.getEmail() == null || registerRequest.getContrasenia() == null) {
+    if (registerRequest == null || registerRequest.getName() == null || registerRequest.getEmail() == null || registerRequest.getPassword() == null) {
       return ResponseEntity.badRequest().body("Incomplete Data for register.");
     }
 
