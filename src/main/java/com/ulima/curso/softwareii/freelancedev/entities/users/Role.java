@@ -25,6 +25,7 @@ import java.util.UUID;
 public class Role {
   @Id
   @GeneratedValue(generator = "UUID")
+  @Deprecated
   @GenericGenerator(
       name = "UUID",
       strategy = "org.hibernate.id.UUIDGenerator"

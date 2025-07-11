@@ -7,9 +7,9 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
-import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.GenericGenerator;
 
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -19,7 +19,6 @@ import java.util.UUID;
 @Table(name = "user")
 @NoArgsConstructor
 @AllArgsConstructor
-@SuperBuilder
 public abstract class User {
   @Id
   @GeneratedValue(generator = "UUID")
@@ -69,9 +68,19 @@ public abstract class User {
   @Transient
   private boolean admin;
 
+  private Instant created_at;
+  private Instant updated_at;
+
   @PrePersist
   public void prePersist(){
     enabled=true;
+    this.created_at = Instant.now();
+    this.updated_at = Instant.now();
+  }
+
+  @PostUpdate
+  public void preUpdate(){
+    this.updated_at = Instant.now();
   }
 
   public UUID getIdUser() {
