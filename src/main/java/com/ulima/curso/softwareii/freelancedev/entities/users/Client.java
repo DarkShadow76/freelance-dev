@@ -18,6 +18,8 @@ import java.util.List;
 @NoArgsConstructor
 @SuperBuilder
 public class Client extends User {
+  private String CompanyName;
+
   @Override
   public List<Role> getRoles(){
     return super.getRoles();
