@@ -1,7 +1,6 @@
 package com.ulima.curso.softwareii.freelancedev.dto.response;
 
 
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,12 +13,9 @@ import java.util.UUID;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-
-public class ClientResponse {
+public class FreelancerResponse {
   public UUID idUser;
   public String name;
   public String email;
   public boolean enabled;
-
-  public String companyName;
 }

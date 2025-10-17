@@ -1,41 +1,39 @@
 package com.ulima.curso.softwareii.freelancedev.services;
 
 import com.ulima.curso.softwareii.freelancedev.entities.users.User;
-import com.ulima.curso.softwareii.freelancedev.repositories.UserRepository;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import com.ulima.curso.softwareii.freelancedev.repositories.ClientRepository;
+import com.ulima.curso.softwareii.freelancedev.repositories.FreelancerRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.Collection;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class JpaUserDetailService implements UserDetailsService {
-  private final UserRepository userRepository;
+  private final ClientRepository clientRepository;
+  private final FreelancerRepository freelancerRepository;
 
-  public JpaUserDetailService(UserRepository userRepository) {
-    this.userRepository = userRepository;
+  public JpaUserDetailService(ClientRepository clientRepository, FreelancerRepository freelancerRepository) {
+    this.clientRepository = clientRepository;
+    this.freelancerRepository = freelancerRepository;
   }
 
   @Override
   public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-    Optional<User> user_opt = userRepository.findByEmail(email);
-    //Usuario u = new Usuario()
+    Optional<User> user_opt = clientRepository.findByEmail(email).map(User.class::cast);
+    if (user_opt.isEmpty()) {
+      user_opt = freelancerRepository.findByEmail(email).map(User.class::cast);
+    }
+
     if (user_opt.isPresent()) {
       User user = user_opt.get();
-
-      Collection<GrantedAuthority> authorities = user.getRoles().stream()
-          .map(rol -> new SimpleGrantedAuthority(rol.getRoleName()))
-          .collect(Collectors.toList());
 
       return org.springframework.security.core.userdetails.User.builder()
           .username(user.getName())
           .password(user.getHashedPassword())
-          .authorities(authorities)
+          .authorities(java.util.Collections.emptyList())
           .disabled(false)
           .build();
     } else {

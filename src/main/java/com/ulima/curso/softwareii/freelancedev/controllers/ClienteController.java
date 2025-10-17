@@ -13,31 +13,45 @@ import org.springframework.web.bind.annotation.RestController;
 
 import org.slf4j.Logger;
 
+import com.ulima.curso.softwareii.freelancedev.dto.response.ClientResponse;
+import com.ulima.curso.softwareii.freelancedev.mappers.ClientMapper;
+import org.springframework.web.bind.annotation.GetMapping;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
 @RestController
 @RequestMapping("/api/ver1/client")
-public class ClienteController extends UsuarioController<Client>{
+public class ClienteController {
   private static final Logger logger = LoggerFactory.getLogger(ClienteController.class);
 
   private final ClienteService clienteService;
 
   public ClienteController(ClienteService clienteService) {
-    super(clienteService);
     this.clienteService = clienteService;
   }
 
+  @GetMapping
+  public ResponseEntity<List<ClientResponse>> getAllClientes() {
+    List<Client> clientes = clienteService.findAll();
+    List<ClientResponse> clientResponses = clientes.stream()
+        .map(ClientMapper::toResponse)
+        .collect(Collectors.toList());
+    return ResponseEntity.ok(clientResponses);
+  }
+
   @PostMapping("/register") // Esto mapeará a /api/ver1/cliente/register
-  public ResponseEntity<?> registerCliente(@RequestBody RegisterRequest registerRequest) {
+  public ResponseEntity<ClientResponse> registerCliente(@RequestBody RegisterRequest registerRequest) {
     if (registerRequest == null || registerRequest.getName() == null || registerRequest.getEmail() == null || registerRequest.getPassword() == null) {
-      return ResponseEntity.badRequest().body("Incomplete Data for register.");
+      return ResponseEntity.badRequest().build();
     }
 
     try {
       Client newCliente = clienteService.registerClient(registerRequest);
-
-      return ResponseEntity.status(HttpStatus.CREATED).body("Client '" + newCliente.getEmail() + "' successfully registered.");
+      return ResponseEntity.status(HttpStatus.CREATED).body(ClientMapper.toResponse(newCliente));
     } catch (RuntimeException e) {
       logger.error("Unexpected Error at register cliente: {}", e.getMessage(), e); // <-- ¡AQUÍ LOGUEAMOS EL STACK TRACE COMPLETO!
-      return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+      return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
     }
   }
 }

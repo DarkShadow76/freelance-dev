@@ -47,25 +47,7 @@ public abstract class User {
   @Column(nullable = false)
   private String HashedPassword;
 
-  @JsonIgnoreProperties({"user", "handler", "hibernateLazyInitializer"})
-  @JsonManagedReference
-  @ManyToMany(
-      targetEntity = Role.class,
-      cascade = CascadeType.MERGE,
-      fetch = FetchType.LAZY
-  )
-  @JoinTable(
-      name = "user_roles",
-      joinColumns = @JoinColumn(name = "id_user"),
-      inverseJoinColumns = @JoinColumn(name = "id_role"),
-      uniqueConstraints = {@UniqueConstraint(columnNames = {"id_user", "id_role"})}
-  )
-  private List<Role> roles = new ArrayList<>();
-
   private boolean enabled;
-
-  @Transient
-  private boolean admin;
 
   private Instant created_at;
   private Instant updated_at;
@@ -114,14 +96,6 @@ public abstract class User {
     HashedPassword = hashedPassword;
   }
 
-  public List<Role> getRoles() {
-    return roles;
-  }
-
-  public void setRoles(List<Role> roles) {
-    this.roles = roles;
-  }
-
   public boolean isEnabled() {
     return enabled;
   }
@@ -130,11 +104,5 @@ public abstract class User {
     this.enabled = enabled;
   }
 
-  public boolean isAdmin() {
-    return admin;
-  }
 
-  public void setAdmin(boolean admin) {
-    this.admin = admin;
-  }
 }

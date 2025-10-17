@@ -10,5 +10,7 @@ import java.util.UUID;
 @RepositoryRestResource(exported = false)
 public interface FreelancerRepository extends JpaRepository<Freelancer, UUID> {
   boolean existsByName(String name);
+  boolean existsByEmail(String email);
+  Optional<Freelancer> findByEmail(String email);
   Optional<Freelancer> findByName(String name);
 }

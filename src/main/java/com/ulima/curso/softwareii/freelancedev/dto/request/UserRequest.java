@@ -1,6 +1,6 @@
 package com.ulima.curso.softwareii.freelancedev.dto.request;
 
-import com.ulima.curso.softwareii.freelancedev.entities.users.Role;
+
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -27,5 +27,5 @@ public class UserRequest {
   @Size(min = 8, message = "Password must be at least 8 characters")
   private String HashedPassword;
 
-  private List<Role> roles;
+
 }

@@ -2,9 +2,7 @@ package com.ulima.curso.softwareii.freelancedev.services;
 
 import com.ulima.curso.softwareii.freelancedev.dto.request.RegisterRequest;
 import com.ulima.curso.softwareii.freelancedev.entities.users.Client;
-import com.ulima.curso.softwareii.freelancedev.entities.users.Role;
 import com.ulima.curso.softwareii.freelancedev.repositories.ClientRepository;
-import com.ulima.curso.softwareii.freelancedev.repositories.RolRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,13 +14,10 @@ import java.util.List;
 public class ClienteServiceImpl implements ClienteService{
   private final ClientRepository clientRepository;
 
-  private final RolRepository rolRepository;
-
   private final PasswordEncoder passwordEncoder;
 
-  public ClienteServiceImpl(ClientRepository clientRepository, RolRepository rolRepository, PasswordEncoder passwordEncoder) {
+  public ClienteServiceImpl(ClientRepository clientRepository, PasswordEncoder passwordEncoder) {
     this.clientRepository = clientRepository;
-    this.rolRepository = rolRepository;
     this.passwordEncoder = passwordEncoder;
   }
 
@@ -57,13 +52,7 @@ public class ClienteServiceImpl implements ClienteService{
     Nclient.setEmail(request.getEmail());
     // Hash Password
     Nclient.setHashedPassword(passwordEncoder.encode(request.getPassword()));
-    Nclient.setAdmin(false);
     Nclient.setEnabled(true);
-
-    Role defaulRole = rolRepository.findByRoleName("ROLE_CLIENT")
-        .orElseThrow(() -> new RuntimeException("Error: Role for Client Not found."));
-
-    Nclient.setRoles(Collections.singletonList(defaulRole));
 
     return clientRepository.save(Nclient);
   }

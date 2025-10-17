@@ -8,17 +8,14 @@ import lombok.experimental.SuperBuilder;
 
 import java.util.List;
 
-@EqualsAndHashCode(callSuper = true)
+import lombok.Getter;
+import lombok.Setter;
+
 @Entity
 @Table(name = "freelancer")
 @PrimaryKeyJoinColumn(name = "id_user")
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
-@SuperBuilder
 public class Freelancer extends User {
-
-  @Override
-  public List<Role> getRoles(){
-    return super.getRoles();
-  }
 }

@@ -10,18 +10,15 @@ import lombok.experimental.SuperBuilder;
 
 import java.util.List;
 
-@EqualsAndHashCode(callSuper = true)
+import lombok.Getter;
+import lombok.Setter;
+
 @Entity
 @Table(name = "client")
 @PrimaryKeyJoinColumn(name = "id_user")
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
-@SuperBuilder
 public class Client extends User {
   private String CompanyName;
-
-  @Override
-  public List<Role> getRoles(){
-    return super.getRoles();
-  }
 }

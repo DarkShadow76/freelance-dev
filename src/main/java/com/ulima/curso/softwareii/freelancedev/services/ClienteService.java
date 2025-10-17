@@ -5,7 +5,7 @@ import com.ulima.curso.softwareii.freelancedev.entities.users.Client;
 
 import java.util.List;
 
-public interface ClienteService extends UserService<Client> {
+public interface ClienteService {
   List<Client> findAll();
   Client save(Client cliente);
   Client registerClient(RegisterRequest request);

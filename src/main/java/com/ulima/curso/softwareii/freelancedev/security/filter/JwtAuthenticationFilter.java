@@ -1,6 +1,6 @@
 package com.ulima.curso.softwareii.freelancedev.security.filter;
 
-import static com.ulima.curso.softwareii.freelancedev.security.TokenJwtConfig.*;
+import static com.ulima.curso.softwareii.freelancedev.config.TokenJwtConfig.*;
 
 import com.ulima.curso.softwareii.freelancedev.entities.users.User;
 import com.fasterxml.jackson.databind.ObjectMapper;

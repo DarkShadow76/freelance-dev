@@ -10,27 +10,42 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ulima.curso.softwareii.freelancedev.dto.response.FreelancerResponse;
+import com.ulima.curso.softwareii.freelancedev.mappers.FreelancerMapper;
+import org.springframework.web.bind.annotation.GetMapping;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
 @RestController
 @RequestMapping("/api/ver1/freelancer")
-public class FreelancerController extends UsuarioController<Freelancer> {
+public class FreelancerController {
   private final FreelancerService freelancerService;
 
-  public FreelancerController(FreelancerService FreelancerService) {
-    super(FreelancerService);
-    this.freelancerService = FreelancerService;
+  public FreelancerController(FreelancerService freelancerService) {
+    this.freelancerService = freelancerService;
+  }
+
+  @GetMapping
+  public ResponseEntity<List<FreelancerResponse>> getAllFreelancers() {
+    List<Freelancer> freelancers = freelancerService.findAll();
+    List<FreelancerResponse> freelancerResponses = freelancers.stream()
+        .map(FreelancerMapper::toResponse)
+        .collect(Collectors.toList());
+    return ResponseEntity.ok(freelancerResponses);
   }
 
   @PostMapping("/register")
-  public ResponseEntity<?> registerFreelancer(@RequestBody RegisterRequest registerRequest) {
+  public ResponseEntity<FreelancerResponse> registerFreelancer(@RequestBody RegisterRequest registerRequest) {
     if (registerRequest == null || registerRequest.getName() == null || registerRequest.getEmail() == null || registerRequest.getPassword() == null) {
-      return ResponseEntity.badRequest().body("Incomplete Data for register.");
+      return ResponseEntity.badRequest().build();
     }
 
     try {
       Freelancer newFreelancer = freelancerService.registerFreelancer(registerRequest);
-      return ResponseEntity.status(HttpStatus.CREATED).body("Freelancer '" + newFreelancer.getEmail() + "' successfully registered.");
+      return ResponseEntity.status(HttpStatus.CREATED).body(FreelancerMapper.toResponse(newFreelancer));
     } catch (RuntimeException e) {
-      return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+      return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
     }
   }
 }

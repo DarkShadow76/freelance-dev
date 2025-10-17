@@ -1,6 +1,6 @@
 package com.ulima.curso.softwareii.freelancedev.dto.response;
 
-import com.ulima.curso.softwareii.freelancedev.entities.users.Role;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,10 +14,8 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserResponse {
-  private UUID id_user;
-  private String name;
-  private String email;
-  private boolean enabled;
-  private boolean admin;
-  private List<Role> roles;
+  public UUID id_user;
+  public String name;
+  public String email;
+  public boolean enabled;
 }
