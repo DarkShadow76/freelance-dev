@@ -43,7 +43,6 @@ public abstract class User {
   )
   private String email;
 
-  @NotBlank
   @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
   @Column(nullable = false)
   private String HashedPassword;

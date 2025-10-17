@@ -4,11 +4,18 @@ import com.ulima.curso.softwareii.freelancedev.entities.users.Role;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
-import lombok.Data;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 
 import java.util.List;
 
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class UserRequest {
   @NotBlank(message = "Name must not be blank")
   @Size(min = 4, max = 30, message = "Name must be between 4 and 30 characters")
